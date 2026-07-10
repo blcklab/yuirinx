@@ -464,7 +464,8 @@
     "check:exports": "node scripts/check-exports.mjs",
     "check:tree-shaking": "node scripts/check-tree-shaking.mjs",
     "check:package": "npm run build && npm run check:exports && publint && node scripts/verify-package.mjs",
-    "check": "npm run lint && npm test && npm run format:check && npm run build && npm run check:exports && npm run check:tree-shaking && npm run size && publint && node scripts/verify-package.mjs",
+    "check": "npm run lint && npm test && npm run build && npm run check:exports && npm run check:tree-shaking && npm run size && publint && node scripts/verify-package.mjs",
+    "check:all": "npm run format:check && npm run check",
     "prepublishOnly": "npm run check"
   }
 }
