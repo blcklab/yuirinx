@@ -1,6 +1,6 @@
 {
   "name": "@blcklab/yuirinx",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Small zero-dependency syntax highlighter for the modern web.",
   "keywords": [
     "syntax-highlighter",
