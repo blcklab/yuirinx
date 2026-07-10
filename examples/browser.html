@@ -1,0 +1,356 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Yuirinx — Premium syntax highlighting</title>
+    <style>
+      :root {
+        color-scheme: dark;
+        font-family:
+          Inter,
+          ui-sans-serif,
+          system-ui,
+          -apple-system,
+          BlinkMacSystemFont,
+          "Segoe UI",
+          sans-serif;
+        background: #070910;
+        color: #eef2ff;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        min-height: 100vh;
+        margin: 0;
+        display: grid;
+        place-items: center;
+        overflow-x: hidden;
+        background:
+          radial-gradient(
+            circle at 16% 18%,
+            rgba(103, 220, 255, 0.14),
+            transparent 28rem
+          ),
+          radial-gradient(
+            circle at 84% 12%,
+            rgba(255, 120, 174, 0.12),
+            transparent 26rem
+          ),
+          radial-gradient(
+            circle at 72% 88%,
+            rgba(126, 224, 184, 0.1),
+            transparent 30rem
+          ),
+          #070910;
+      }
+
+      body::before {
+        content: "";
+        position: fixed;
+        inset: 0;
+        pointer-events: none;
+        background-image:
+          linear-gradient(rgba(255, 255, 255, 0.018) 1px, transparent 1px),
+          linear-gradient(
+            90deg,
+            rgba(255, 255, 255, 0.018) 1px,
+            transparent 1px
+          );
+        background-size: 42px 42px;
+        mask-image: linear-gradient(to bottom, black, transparent 85%);
+      }
+
+      main {
+        width: min(1040px, calc(100% - 32px));
+        padding: 64px 0;
+      }
+
+      .eyebrow {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        margin-bottom: 14px;
+        color: #93a0b8;
+        font-size: 12px;
+        font-weight: 700;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+      }
+
+      .eyebrow::before {
+        width: 7px;
+        height: 7px;
+        border-radius: 999px;
+        background: #7ee0b8;
+        box-shadow: 0 0 18px #7ee0b8;
+        content: "";
+      }
+
+      h1 {
+        max-width: 760px;
+        margin: 0;
+        font-size: clamp(42px, 8vw, 78px);
+        line-height: 0.98;
+        letter-spacing: -0.055em;
+      }
+
+      h1 span {
+        background: linear-gradient(
+          105deg,
+          #ffffff 16%,
+          #9bbcff 48%,
+          #7ee0b8 82%
+        );
+        background-clip: text;
+        color: transparent;
+      }
+
+      .lead {
+        max-width: 640px;
+        margin: 24px 0 34px;
+        color: #8f9bb0;
+        font-size: 18px;
+        line-height: 1.7;
+      }
+
+      .code-window {
+        position: relative;
+        overflow: hidden;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 24px;
+        background: rgba(12, 15, 24, 0.76);
+        box-shadow:
+          0 34px 100px rgba(0, 0, 0, 0.46),
+          inset 0 1px rgba(255, 255, 255, 0.06);
+        backdrop-filter: blur(24px);
+      }
+
+      .code-window::before {
+        position: absolute;
+        inset: 0 0 auto;
+        height: 1px;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          rgba(103, 220, 255, 0.65),
+          transparent
+        );
+        content: "";
+      }
+
+      .toolbar {
+        min-height: 62px;
+        padding: 0 18px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.075);
+      }
+
+      .window-title,
+      .controls {
+        display: flex;
+        align-items: center;
+        gap: 9px;
+      }
+
+      .dot {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+      }
+
+      .dot:nth-child(1) {
+        background: #ff708a;
+      }
+      .dot:nth-child(2) {
+        background: #f2c879;
+      }
+      .dot:nth-child(3) {
+        background: #7ee0b8;
+      }
+
+      .filename {
+        margin-left: 10px;
+        color: #aab3c5;
+        font-family:
+          ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+        font-size: 12px;
+      }
+
+      button {
+        border: 1px solid rgba(255, 255, 255, 0.09);
+        border-radius: 10px;
+        padding: 8px 11px;
+        background: rgba(255, 255, 255, 0.045);
+        color: #aeb7ca;
+        font: inherit;
+        font-size: 12px;
+        font-weight: 650;
+        cursor: pointer;
+        transition: 160ms ease;
+      }
+
+      button:hover,
+      button.active {
+        border-color: rgba(126, 224, 184, 0.32);
+        background: rgba(126, 224, 184, 0.1);
+        color: #eafff7;
+        transform: translateY(-1px);
+      }
+
+      #output {
+        overflow-x: auto;
+      }
+
+      #output .yuirinx {
+        min-width: max-content;
+        margin: 0;
+        padding: 28px 30px 34px;
+        border-radius: 0;
+        font-family:
+          "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+        font-size: 14px;
+        font-variant-ligatures: contextual;
+        line-height: 1.8;
+        tab-size: 2;
+      }
+
+      .meta {
+        margin-top: 18px;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        color: #788399;
+        font-size: 12px;
+      }
+
+      .pill {
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: 999px;
+        padding: 7px 11px;
+        background: rgba(255, 255, 255, 0.035);
+      }
+
+      @media (max-width: 700px) {
+        main {
+          padding: 36px 0;
+        }
+        .toolbar {
+          align-items: flex-start;
+          padding-block: 15px;
+        }
+        .controls {
+          flex-wrap: wrap;
+          justify-content: flex-end;
+        }
+        .filename {
+          display: none;
+        }
+        #output .yuirinx {
+          padding: 22px;
+          font-size: 12px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <div class="eyebrow">Zero dependencies · synchronous · safe</div>
+      <h1>Code deserves <span>better light.</span></h1>
+      <p class="lead">
+        Yuirinx is an original, lightweight syntax highlighter built for
+        documentation, product pages, and modern developer tools.
+      </p>
+
+      <section class="code-window">
+        <header class="toolbar">
+          <div class="window-title">
+            <span class="dot"></span><span class="dot"></span
+            ><span class="dot"></span>
+            <span class="filename">highlighter.ts</span>
+          </div>
+          <div class="controls">
+            <button data-theme="yuirinx-noir" class="active">Noir</button>
+            <button data-theme="yuirinx-aurora">Aurora</button>
+            <button data-theme="yuirinx-pearl">Pearl</button>
+            <button id="copy">Copy</button>
+          </div>
+        </header>
+        <div id="output"></div>
+      </section>
+
+      <div class="meta">
+        <span class="pill">34 language modules</span>
+        <span class="pill">2.84 KB core gzip</span>
+        <span class="pill">ESM + CommonJS</span>
+        <span class="pill">Node · browser · edge</span>
+      </div>
+    </main>
+
+    <script type="module">
+      import { createHighlighter } from "../dist/esm/index.js";
+      import { typescript } from "../dist/esm/languages/typescript.js";
+      import { yuirinxAurora } from "../dist/esm/themes/yuirinx-aurora.js";
+      import { yuirinxNoir } from "../dist/esm/themes/yuirinx-noir.js";
+      import { yuirinxPearl } from "../dist/esm/themes/yuirinx-pearl.js";
+
+      const source = `interface Palette {
+  readonly name: string
+  readonly accents: readonly string[]
+}
+
+const aurora: Palette = {
+  name: 'Yuirinx Aurora',
+  accents: ['cyan', 'violet', 'rose'],
+}
+
+export function paint(code: string): string {
+  const glow = aurora.accents.join(' → ')
+  return \`\${code} // \${glow}\`
+}`;
+
+      const yuirinx = createHighlighter({
+        languages: [typescript],
+        themes: [yuirinxNoir, yuirinxAurora, yuirinxPearl],
+      });
+
+      const output = document.querySelector("#output");
+      const buttons = document.querySelectorAll("[data-theme]");
+      let activeTheme = "yuirinx-noir";
+
+      function render() {
+        output.innerHTML = yuirinx.highlight(source, {
+          lang: "typescript",
+          theme: activeTheme,
+        });
+      }
+
+      for (const button of buttons) {
+        button.addEventListener("click", () => {
+          activeTheme = button.dataset.theme;
+          for (const item of buttons)
+            item.classList.toggle("active", item === button);
+          render();
+        });
+      }
+
+      document
+        .querySelector("#copy")
+        .addEventListener("click", async (event) => {
+          await navigator.clipboard.writeText(source);
+          event.currentTarget.textContent = "Copied";
+          setTimeout(() => {
+            event.currentTarget.textContent = "Copy";
+          }, 1200);
+        });
+
+      render();
+    </script>
+  </body>
+</html>

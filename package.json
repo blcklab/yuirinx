@@ -1,0 +1,470 @@
+{
+  "name": "@blcklab/yuirinx",
+  "version": "0.1.0",
+  "description": "Small zero-dependency syntax highlighter for the modern web.",
+  "keywords": [
+    "syntax-highlighter",
+    "highlighting",
+    "code",
+    "typescript",
+    "zero-dependency",
+    "tree-shaking",
+    "documentation"
+  ],
+  "homepage": "https://github.com/blcklab/yuirinx#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/blcklab/yuirinx.git"
+  },
+  "bugs": {
+    "url": "https://github.com/blcklab/yuirinx/issues"
+  },
+  "license": "MIT",
+  "author": "BLCK Lab",
+  "type": "module",
+  "sideEffects": false,
+  "main": "./dist/cjs/index.cjs",
+  "module": "./dist/esm/index.js",
+  "types": "./dist/types/index.d.ts",
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./dist/types/index.d.ts",
+        "default": "./dist/esm/index.js"
+      },
+      "require": {
+        "types": "./dist/types/index.d.cts",
+        "default": "./dist/cjs/index.cjs"
+      }
+    },
+    "./core": {
+      "import": {
+        "types": "./dist/types/core/index.d.ts",
+        "default": "./dist/esm/core/index.js"
+      },
+      "require": {
+        "types": "./dist/types/core/index.d.cts",
+        "default": "./dist/cjs/core/index.cjs"
+      }
+    },
+    "./themes": {
+      "import": {
+        "types": "./dist/types/themes/index.d.ts",
+        "default": "./dist/esm/themes/index.js"
+      },
+      "require": {
+        "types": "./dist/types/themes/index.d.cts",
+        "default": "./dist/cjs/themes/index.cjs"
+      }
+    },
+    "./lang/bash": {
+      "import": {
+        "types": "./dist/types/languages/bash.d.ts",
+        "default": "./dist/esm/languages/bash.js"
+      },
+      "require": {
+        "types": "./dist/types/languages/bash.d.cts",
+        "default": "./dist/cjs/languages/bash.cjs"
+      }
+    },
+    "./lang/c": {
+      "import": {
+        "types": "./dist/types/languages/c.d.ts",
+        "default": "./dist/esm/languages/c.js"
+      },
+      "require": {
+        "types": "./dist/types/languages/c.d.cts",
+        "default": "./dist/cjs/languages/c.cjs"
+      }
+    },
+    "./lang/cpp": {
+      "import": {
+        "types": "./dist/types/languages/cpp.d.ts",
+        "default": "./dist/esm/languages/cpp.js"
+      },
+      "require": {
+        "types": "./dist/types/languages/cpp.d.cts",
+        "default": "./dist/cjs/languages/cpp.cjs"
+      }
+    },
+    "./lang/csharp": {
+      "import": {
+        "types": "./dist/types/languages/csharp.d.ts",
+        "default": "./dist/esm/languages/csharp.js"
+      },
+      "require": {
+        "types": "./dist/types/languages/csharp.d.cts",
+        "default": "./dist/cjs/languages/csharp.cjs"
+      }
+    },
+    "./lang/css": {
+      "import": {
+        "types": "./dist/types/languages/css.d.ts",
+        "default": "./dist/esm/languages/css.js"
+      },
+      "require": {
+        "types": "./dist/types/languages/css.d.cts",
+        "default": "./dist/cjs/languages/css.cjs"
+      }
+    },
+    "./lang/dart": {
+      "import": {
+        "types": "./dist/types/languages/dart.d.ts",
+        "default": "./dist/esm/languages/dart.js"
+      },
+      "require": {
+        "types": "./dist/types/languages/dart.d.cts",
+        "default": "./dist/cjs/languages/dart.cjs"
+      }
+    },
+    "./lang/dockerfile": {
+      "import": {
+        "types": "./dist/types/languages/dockerfile.d.ts",
+        "default": "./dist/esm/languages/dockerfile.js"
+      },
+      "require": {
+        "types": "./dist/types/languages/dockerfile.d.cts",
+        "default": "./dist/cjs/languages/dockerfile.cjs"
+      }
+    },
+    "./lang/go": {
+      "import": {
+        "types": "./dist/types/languages/go.d.ts",
+        "default": "./dist/esm/languages/go.js"
+      },
+      "require": {
+        "types": "./dist/types/languages/go.d.cts",
+        "default": "./dist/cjs/languages/go.cjs"
+      }
+    },
+    "./lang/graphql": {
+      "import": {
+        "types": "./dist/types/languages/graphql.d.ts",
+        "default": "./dist/esm/languages/graphql.js"
+      },
+      "require": {
+        "types": "./dist/types/languages/graphql.d.cts",
+        "default": "./dist/cjs/languages/graphql.cjs"
+      }
+    },
+    "./lang/html": {
+      "import": {
+        "types": "./dist/types/languages/html.d.ts",
+        "default": "./dist/esm/languages/html.js"
+      },
+      "require": {
+        "types": "./dist/types/languages/html.d.cts",
+        "default": "./dist/cjs/languages/html.cjs"
+      }
+    },
+    "./lang/ini": {
+      "import": {
+        "types": "./dist/types/languages/ini.d.ts",
+        "default": "./dist/esm/languages/ini.js"
+      },
+      "require": {
+        "types": "./dist/types/languages/ini.d.cts",
+        "default": "./dist/cjs/languages/ini.cjs"
+      }
+    },
+    "./lang/java": {
+      "import": {
+        "types": "./dist/types/languages/java.d.ts",
+        "default": "./dist/esm/languages/java.js"
+      },
+      "require": {
+        "types": "./dist/types/languages/java.d.cts",
+        "default": "./dist/cjs/languages/java.cjs"
+      }
+    },
+    "./lang/javascript": {
+      "import": {
+        "types": "./dist/types/languages/javascript.d.ts",
+        "default": "./dist/esm/languages/javascript.js"
+      },
+      "require": {
+        "types": "./dist/types/languages/javascript.d.cts",
+        "default": "./dist/cjs/languages/javascript.cjs"
+      }
+    },
+    "./lang/json": {
+      "import": {
+        "types": "./dist/types/languages/json.d.ts",
+        "default": "./dist/esm/languages/json.js"
+      },
+      "require": {
+        "types": "./dist/types/languages/json.d.cts",
+        "default": "./dist/cjs/languages/json.cjs"
+      }
+    },
+    "./lang/jsx": {
+      "import": {
+        "types": "./dist/types/languages/jsx.d.ts",
+        "default": "./dist/esm/languages/jsx.js"
+      },
+      "require": {
+        "types": "./dist/types/languages/jsx.d.cts",
+        "default": "./dist/cjs/languages/jsx.cjs"
+      }
+    },
+    "./lang/kotlin": {
+      "import": {
+        "types": "./dist/types/languages/kotlin.d.ts",
+        "default": "./dist/esm/languages/kotlin.js"
+      },
+      "require": {
+        "types": "./dist/types/languages/kotlin.d.cts",
+        "default": "./dist/cjs/languages/kotlin.cjs"
+      }
+    },
+    "./lang/markdown": {
+      "import": {
+        "types": "./dist/types/languages/markdown.d.ts",
+        "default": "./dist/esm/languages/markdown.js"
+      },
+      "require": {
+        "types": "./dist/types/languages/markdown.d.cts",
+        "default": "./dist/cjs/languages/markdown.cjs"
+      }
+    },
+    "./lang/nginx": {
+      "import": {
+        "types": "./dist/types/languages/nginx.d.ts",
+        "default": "./dist/esm/languages/nginx.js"
+      },
+      "require": {
+        "types": "./dist/types/languages/nginx.d.cts",
+        "default": "./dist/cjs/languages/nginx.cjs"
+      }
+    },
+    "./lang/php": {
+      "import": {
+        "types": "./dist/types/languages/php.d.ts",
+        "default": "./dist/esm/languages/php.js"
+      },
+      "require": {
+        "types": "./dist/types/languages/php.d.cts",
+        "default": "./dist/cjs/languages/php.cjs"
+      }
+    },
+    "./lang/plaintext": {
+      "import": {
+        "types": "./dist/types/languages/plaintext.d.ts",
+        "default": "./dist/esm/languages/plaintext.js"
+      },
+      "require": {
+        "types": "./dist/types/languages/plaintext.d.cts",
+        "default": "./dist/cjs/languages/plaintext.cjs"
+      }
+    },
+    "./lang/python": {
+      "import": {
+        "types": "./dist/types/languages/python.d.ts",
+        "default": "./dist/esm/languages/python.js"
+      },
+      "require": {
+        "types": "./dist/types/languages/python.d.cts",
+        "default": "./dist/cjs/languages/python.cjs"
+      }
+    },
+    "./lang/ruby": {
+      "import": {
+        "types": "./dist/types/languages/ruby.d.ts",
+        "default": "./dist/esm/languages/ruby.js"
+      },
+      "require": {
+        "types": "./dist/types/languages/ruby.d.cts",
+        "default": "./dist/cjs/languages/ruby.cjs"
+      }
+    },
+    "./lang/rust": {
+      "import": {
+        "types": "./dist/types/languages/rust.d.ts",
+        "default": "./dist/esm/languages/rust.js"
+      },
+      "require": {
+        "types": "./dist/types/languages/rust.d.cts",
+        "default": "./dist/cjs/languages/rust.cjs"
+      }
+    },
+    "./lang/scss": {
+      "import": {
+        "types": "./dist/types/languages/scss.d.ts",
+        "default": "./dist/esm/languages/scss.js"
+      },
+      "require": {
+        "types": "./dist/types/languages/scss.d.cts",
+        "default": "./dist/cjs/languages/scss.cjs"
+      }
+    },
+    "./lang/shell": {
+      "import": {
+        "types": "./dist/types/languages/shell.d.ts",
+        "default": "./dist/esm/languages/shell.js"
+      },
+      "require": {
+        "types": "./dist/types/languages/shell.d.cts",
+        "default": "./dist/cjs/languages/shell.cjs"
+      }
+    },
+    "./lang/sql": {
+      "import": {
+        "types": "./dist/types/languages/sql.d.ts",
+        "default": "./dist/esm/languages/sql.js"
+      },
+      "require": {
+        "types": "./dist/types/languages/sql.d.cts",
+        "default": "./dist/cjs/languages/sql.cjs"
+      }
+    },
+    "./lang/svelte": {
+      "import": {
+        "types": "./dist/types/languages/svelte.d.ts",
+        "default": "./dist/esm/languages/svelte.js"
+      },
+      "require": {
+        "types": "./dist/types/languages/svelte.d.cts",
+        "default": "./dist/cjs/languages/svelte.cjs"
+      }
+    },
+    "./lang/swift": {
+      "import": {
+        "types": "./dist/types/languages/swift.d.ts",
+        "default": "./dist/esm/languages/swift.js"
+      },
+      "require": {
+        "types": "./dist/types/languages/swift.d.cts",
+        "default": "./dist/cjs/languages/swift.cjs"
+      }
+    },
+    "./lang/toml": {
+      "import": {
+        "types": "./dist/types/languages/toml.d.ts",
+        "default": "./dist/esm/languages/toml.js"
+      },
+      "require": {
+        "types": "./dist/types/languages/toml.d.cts",
+        "default": "./dist/cjs/languages/toml.cjs"
+      }
+    },
+    "./lang/tsx": {
+      "import": {
+        "types": "./dist/types/languages/tsx.d.ts",
+        "default": "./dist/esm/languages/tsx.js"
+      },
+      "require": {
+        "types": "./dist/types/languages/tsx.d.cts",
+        "default": "./dist/cjs/languages/tsx.cjs"
+      }
+    },
+    "./lang/typescript": {
+      "import": {
+        "types": "./dist/types/languages/typescript.d.ts",
+        "default": "./dist/esm/languages/typescript.js"
+      },
+      "require": {
+        "types": "./dist/types/languages/typescript.d.cts",
+        "default": "./dist/cjs/languages/typescript.cjs"
+      }
+    },
+    "./lang/vue": {
+      "import": {
+        "types": "./dist/types/languages/vue.d.ts",
+        "default": "./dist/esm/languages/vue.js"
+      },
+      "require": {
+        "types": "./dist/types/languages/vue.d.cts",
+        "default": "./dist/cjs/languages/vue.cjs"
+      }
+    },
+    "./lang/xml": {
+      "import": {
+        "types": "./dist/types/languages/xml.d.ts",
+        "default": "./dist/esm/languages/xml.js"
+      },
+      "require": {
+        "types": "./dist/types/languages/xml.d.cts",
+        "default": "./dist/cjs/languages/xml.cjs"
+      }
+    },
+    "./lang/yaml": {
+      "import": {
+        "types": "./dist/types/languages/yaml.d.ts",
+        "default": "./dist/esm/languages/yaml.js"
+      },
+      "require": {
+        "types": "./dist/types/languages/yaml.d.cts",
+        "default": "./dist/cjs/languages/yaml.cjs"
+      }
+    },
+    "./theme/yuirinx-aurora": {
+      "import": {
+        "types": "./dist/types/themes/yuirinx-aurora.d.ts",
+        "default": "./dist/esm/themes/yuirinx-aurora.js"
+      },
+      "require": {
+        "types": "./dist/types/themes/yuirinx-aurora.d.cts",
+        "default": "./dist/cjs/themes/yuirinx-aurora.cjs"
+      }
+    },
+    "./theme/yuirinx-noir": {
+      "import": {
+        "types": "./dist/types/themes/yuirinx-noir.d.ts",
+        "default": "./dist/esm/themes/yuirinx-noir.js"
+      },
+      "require": {
+        "types": "./dist/types/themes/yuirinx-noir.d.cts",
+        "default": "./dist/cjs/themes/yuirinx-noir.cjs"
+      }
+    },
+    "./theme/yuirinx-pearl": {
+      "import": {
+        "types": "./dist/types/themes/yuirinx-pearl.d.ts",
+        "default": "./dist/esm/themes/yuirinx-pearl.js"
+      },
+      "require": {
+        "types": "./dist/types/themes/yuirinx-pearl.d.cts",
+        "default": "./dist/cjs/themes/yuirinx-pearl.cjs"
+      }
+    },
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "dist"
+  ],
+  "engines": {
+    "node": ">=22"
+  },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "@types/node": "^26.1.1",
+    "esbuild": "^0.28.1",
+    "prettier": "^3.9.5",
+    "publint": "^0.3.21",
+    "typescript": "^7.0.2",
+    "vitest": "^4.1.10"
+  },
+  "scripts": {
+    "clean": "node scripts/clean.mjs",
+    "build": "node scripts/build.mjs",
+    "build:debug": "node scripts/build.mjs --sourcemap",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:types": "tsc --noEmit",
+    "test:package": "npm run build && npm run check:exports && publint && node scripts/verify-package.mjs",
+    "lint": "npm run test:types",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "benchmark": "npm run build --silent && node benchmark/benchmark.mjs",
+    "size": "node scripts/check-size.mjs",
+    "check:exports": "node scripts/check-exports.mjs",
+    "check:tree-shaking": "node scripts/check-tree-shaking.mjs",
+    "check:package": "npm run build && npm run check:exports && publint && node scripts/verify-package.mjs",
+    "check": "npm run lint && npm test && npm run format:check && npm run build && npm run check:exports && npm run check:tree-shaking && npm run size && publint && node scripts/verify-package.mjs",
+    "prepublishOnly": "npm run check"
+  }
+}
