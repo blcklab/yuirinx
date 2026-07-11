@@ -229,4 +229,4 @@ Yuirinx performs lightweight lexical highlighting. It is not a compiler, AST par
 
 ## License
 
-MIT
+MIT BLCKLAB
