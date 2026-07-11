@@ -26,11 +26,18 @@ export interface TokenizerState {
 
 /** Read-only context passed to dynamic grammar rule resolvers. */
 export interface TokenizerContext {
+  readonly source: string;
   readonly language: LanguageId;
   readonly state: StateName;
   readonly stack: readonly TokenizerState[];
   readonly offset: number;
 }
+
+/** Optional condition evaluated after a rule matches at the current offset. */
+export type MatchPredicate = (
+  match: RegExpExecArray,
+  context: TokenizerContext,
+) => boolean;
 
 /** Static token type or a resolver based on the current regex match. */
 export type TokenTypeResolver =
@@ -45,6 +52,7 @@ export type StateResolver =
 /** A matching grammar rule. Patterns are automatically made sticky. */
 export interface MatchRule {
   readonly pattern: RegExp;
+  readonly when?: MatchPredicate;
   readonly type?: TokenTypeResolver;
   readonly push?: StateResolver;
   readonly next?: StateResolver;
@@ -146,7 +154,7 @@ export interface HighlighterOptions {
 
 /** Isolated registry, tokenizer, and renderer facade. */
 export interface Highlighter {
-  highlight(code: string, options: HighlightOptions): string;
+  highlight(code: string, options?: HighlightOptions): string;
   tokenize(code: string, language: LanguageId | Grammar): Token[];
   render(tokens: readonly Token[], options?: RenderOptions): string;
   registerLanguage(grammar: Grammar): void;

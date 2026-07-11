@@ -28,9 +28,10 @@ const yuirinx = createHighlighter({
 | `defaultFallback` | `"plaintext" \| "color-lines"` | `plaintext` | Behavior used for unavailable language IDs              |
 | `maxStateDepth`   | `number`                       | `64`        | Maximum tokenizer state-stack depth                     |
 
-## `highlighter.highlight(code, options)`
+## `highlighter.highlight(code, options?)`
 
-Tokenizes source code and returns escaped HTML.
+Tokenizes source code and returns escaped HTML. The options object is optional;
+`highlight(code)` uses plaintext and the configured defaults.
 
 ```ts
 const html = yuirinx.highlight(code, {
@@ -115,7 +116,8 @@ yuirinx.listLanguages();
 yuirinx.listThemes();
 ```
 
-`listLanguages()` returns canonical language IDs, not aliases.
+`listLanguages()` returns canonical language IDs, not aliases. The built-in
+`plaintext` language is always available and appears in this list.
 
 ## `themeToCss(theme, options?)`
 
@@ -175,6 +177,7 @@ try {
 
 Public error codes include:
 
+- `YUIRINX_INVALID_OPTION`
 - `YUIRINX_INVALID_GRAMMAR`
 - `YUIRINX_EMPTY_PATTERN`
 - `YUIRINX_DUPLICATE_LANGUAGE`

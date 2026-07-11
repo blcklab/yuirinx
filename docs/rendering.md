@@ -35,8 +35,12 @@ const html = yuirinx.highlight(code, {
 ```
 
 ```html
-<span class="tok-keyword-declaration">const</span>
+<span class="tok-function tok-function-call">log</span>
 ```
+
+Dot-separated token types receive every class in their hierarchy. This lets a
+`function.call` token inherit `.tok-function` styling while still allowing a
+more specific `.tok-function-call` override.
 
 Generate the matching CSS:
 

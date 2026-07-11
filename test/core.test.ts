@@ -113,6 +113,43 @@ describe("core highlighter", () => {
     expect(classes).toContain("yuirinx-theme-noir");
   });
 
+  it("emits parent and specific classes for hierarchical token types", () => {
+    const yuirinx = createHighlighter({
+      languages: [javascript],
+      themes: [yuirinxNoir],
+    });
+    const html = yuirinx.highlight("console.log(value)", {
+      lang: "javascript",
+      theme: "yuirinx-noir",
+      mode: "classes",
+    });
+
+    expect(html).toContain('class="tok-function tok-function-call"');
+  });
+
+  it("exposes plaintext as an always-available built-in language", () => {
+    const yuirinx = createHighlighter();
+
+    expect(yuirinx.hasLanguage("plaintext")).toBe(true);
+    expect(yuirinx.hasLanguage("txt")).toBe(true);
+    expect(yuirinx.getLanguage("plain")?.id).toBe("plaintext");
+    expect(yuirinx.listLanguages()).toContain("plaintext");
+  });
+
+  it("allows highlight without an options object", () => {
+    const yuirinx = createHighlighter();
+    expect(yuirinx.highlight("<safe>")).toContain("&lt;safe&gt;");
+  });
+
+  it("rejects invalid state-depth options", () => {
+    expect(() => createHighlighter({ maxStateDepth: Number.NaN })).toThrowError(
+      expect.objectContaining({ code: "YUIRINX_INVALID_OPTION" }),
+    );
+    expect(() => createHighlighter({ maxStateDepth: 1 })).toThrowError(
+      expect.objectContaining({ code: "YUIRINX_INVALID_OPTION" }),
+    );
+  });
+
   it("supports custom push/pop grammars and unterminated states", () => {
     const grammar: Grammar = {
       id: "mini-state",

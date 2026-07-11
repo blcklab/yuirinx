@@ -115,6 +115,22 @@ const BUILTINS = [
   "window",
 ] as const;
 
+function canStartRegex(source: string, offset: number): boolean {
+  const before = source.slice(0, offset).trimEnd();
+  if (!before) return true;
+
+  const previous = before[before.length - 1] ?? "";
+  if (/[([{,:;=!?&|+\-*%^~<>]/.test(previous)) return true;
+
+  const word = /[A-Za-z_$][\w$]*$/.exec(before)?.[0];
+  return Boolean(
+    word &&
+    /^(?:await|case|delete|do|else|in|instanceof|new|of|return|throw|typeof|void|yield)$/.test(
+      word,
+    ),
+  );
+}
+
 interface EcmaOptions {
   readonly id: string;
   readonly aliases: readonly string[];
@@ -135,10 +151,16 @@ export function createEcmaGrammar(options: EcmaOptions): Grammar {
   ];
 
   if (options.jsx) {
+    if (options.typescript) {
+      rootRules.push({
+        type: "operator",
+        pattern: /<(?=[A-Za-z_$][\w$]*(?:\s+extends\s+[^>]+)?,?>\s*\()/,
+      });
+    }
     rootRules.push({
       type: "tag.punctuation",
-      pattern: /<\/?/,
-      push: "jsxTag",
+      pattern: /<(?=[A-Za-z_$>])/,
+      push: "jsxTagName",
     });
   }
 
@@ -147,6 +169,7 @@ export function createEcmaGrammar(options: EcmaOptions): Grammar {
       type: "regex",
       pattern:
         /\/(?![/*\s])(?:\\.|\[(?:\\.|[^\]\\])*\]|[^/\\\r\n])+\/[dgimsuvy]*/,
+      when: (_match, context) => canStartRegex(context.source, context.offset),
     },
     numberRule,
     { type: "boolean", pattern: /\b(?:true|false)\b/ },
@@ -193,14 +216,54 @@ export function createEcmaGrammar(options: EcmaOptions): Grammar {
           { include: "root" },
         ],
       },
-      jsxTag: {
+      jsxTagName: {
         rules: [
-          { type: "tag.punctuation", pattern: /\/?>/, pop: true },
+          { type: "tag.punctuation", pattern: />/, next: "jsxChildren" },
+          { type: "tag.punctuation", pattern: /\/>/, pop: true },
+          whitespaceRule,
+          {
+            type: "tag",
+            pattern: /[A-Za-z_$][\w$.-]*/,
+            next: "jsxAttributes",
+          },
+          punctuationRule,
+        ],
+      },
+      jsxAttributes: {
+        rules: [
+          { type: "tag.punctuation", pattern: /\/>/, pop: true },
+          { type: "tag.punctuation", pattern: />/, next: "jsxChildren" },
           whitespaceRule,
           { type: "attribute.value", pattern: /"(?:\\.|[^"\\])*"?/ },
           { type: "attribute.value", pattern: /'(?:\\.|[^'\\])*'?/ },
           { type: "punctuation", pattern: /{/, push: "jsxExpression" },
           { type: "operator", pattern: /=/ },
+          { type: "attribute", pattern: /[A-Za-z_$][\w$.-]*/ },
+          punctuationRule,
+        ],
+      },
+      jsxChildren: {
+        fallbackType: "plain",
+        rules: [
+          {
+            type: "tag.punctuation",
+            pattern: /<\/(?=[A-Za-z_$>])/,
+            push: "jsxClosingTag",
+          },
+          {
+            type: "tag.punctuation",
+            pattern: /<(?=[A-Za-z_$>])/,
+            push: "jsxTagName",
+          },
+          { type: "punctuation", pattern: /{/, push: "jsxExpression" },
+          { type: "plain", pattern: /[^<{]+/ },
+          { type: "plain", pattern: /[<{]/ },
+        ],
+      },
+      jsxClosingTag: {
+        rules: [
+          { type: "tag.punctuation", pattern: />/, pop: 2 },
+          whitespaceRule,
           { type: "tag", pattern: /[A-Za-z_$][\w$.-]*/ },
           punctuationRule,
         ],

@@ -85,6 +85,90 @@ describe("shipped languages", () => {
     expect(tokens.length).toBeGreaterThan(0);
   });
 
+  it("distinguishes JavaScript division from regex literals", () => {
+    const yuirinx = createHighlighter({ languages: [javascript] });
+    const tokens = yuirinx.tokenize(
+      "const ratio=a/b/c; const valid=/yes/i;",
+      "javascript",
+    );
+
+    expect(
+      tokens
+        .filter((token) => token.type === "regex")
+        .map((token) => token.value),
+    ).toEqual(["/yes/i"]);
+    expect(
+      tokens.filter(
+        (token) => token.type === "operator" && token.value === "/",
+      ),
+    ).toHaveLength(2);
+  });
+
+  it("classifies JSX tag names, attributes, and children separately", () => {
+    const yuirinx = createHighlighter({ languages: [jsx] });
+    const tokens = yuirinx.tokenize(
+      'const view=<Button title="Save">hello</Button>;',
+      "jsx",
+    );
+
+    expect(
+      tokens.some((token) => token.type === "tag" && token.value === "Button"),
+    ).toBe(true);
+    expect(
+      tokens.some(
+        (token) => token.type === "attribute" && token.value === "title",
+      ),
+    ).toBe(true);
+    expect(
+      tokens.some(
+        (token) => token.type === "attribute.value" && token.value === '"Save"',
+      ),
+    ).toBe(true);
+    expect(
+      tokens.some(
+        (token) => token.type === "plain" && token.value.includes("hello"),
+      ),
+    ).toBe(true);
+  });
+
+  it("keeps common TSX generic arrows out of JSX tag states", () => {
+    const yuirinx = createHighlighter({ languages: [tsx] });
+    const tokens = yuirinx.tokenize(
+      "const identity = <T>(value: T): T => value;",
+      "tsx",
+    );
+
+    expect(tokens.some((token) => token.type === "tag")).toBe(false);
+  });
+
+  it("restricts Markdown block syntax to line starts", () => {
+    const yuirinx = createHighlighter({ languages: [markdown] });
+    const tokens = yuirinx.tokenize(
+      "text # not heading\n# Real heading\nfoo - not list\n- item",
+      "markdown",
+    );
+
+    expect(
+      tokens
+        .filter((token) => token.type === "heading")
+        .map((token) => token.value),
+    ).toEqual(["# Real heading"]);
+    expect(
+      tokens
+        .filter((token) => token.type === "list")
+        .map((token) => token.value),
+    ).toEqual(["- "]);
+  });
+
+  it("classifies CSS percentages as units", () => {
+    const yuirinx = createHighlighter({ languages: [css] });
+    const tokens = yuirinx.tokenize(".meter { width: 50%; }", "css");
+
+    expect(
+      tokens.some((token) => token.type === "unit" && token.value === "%"),
+    ).toBe(true);
+  });
+
   it("registers all canonical grammars without alias conflicts", () => {
     const grammars = fixtures.map(([grammar]) => grammar);
     const yuirinx = createHighlighter({ languages: grammars });

@@ -59,12 +59,16 @@ Internal files under `src/languages/shared/` are not public package entry points
 
 ```text
 dist/
-  esm/       ESM runtime files
-  cjs/       CommonJS runtime files
+  esm/       Preserved ESM runtime module graph
+  cjs/       Self-contained CommonJS public entries
   types/     .d.ts and .d.cts declarations
 ```
 
 The default production build omits source maps to keep the npm package compact. Use `npm run build:debug` when local source maps are useful.
+
+The ESM build includes private internal runtime modules so related public
+languages can share implementation code. Package exports still prevent consumers
+from importing those private paths. CommonJS public entries remain self-contained.
 
 The build script excludes internal shared grammar declarations from the published type tree.
 
@@ -76,6 +80,7 @@ The tree-shaking test:
 2. Installs it into a temporary consumer project
 3. Bundles public imports from `@blcklab/yuirinx`
 4. Verifies unrelated languages and themes are absent
+5. Verifies JavaScript, TypeScript, JSX, and TSX share one preserved ECMAScript grammar module
 
 This tests the published package contract rather than importing source files directly.
 

@@ -34,7 +34,18 @@ export function createHighlighter(
   const grammars = new Map<string, CompiledGrammar>();
   const canonicalIds = new Set<string>();
   const themes = new Map<string, Theme>();
-  const maxStateDepth = Math.max(2, options.maxStateDepth ?? 64);
+  const requestedMaxStateDepth = options.maxStateDepth ?? 64;
+  if (
+    !Number.isFinite(requestedMaxStateDepth) ||
+    !Number.isInteger(requestedMaxStateDepth) ||
+    requestedMaxStateDepth < 2
+  ) {
+    throw new YuirinxError(
+      "YUIRINX_INVALID_OPTION",
+      "maxStateDepth must be a finite integer greater than or equal to 2.",
+    );
+  }
+  const maxStateDepth = requestedMaxStateDepth;
   const compiledPlaintext = compileGrammar(plaintextGrammar);
   const plaintextIds = new Set([
     normalizeId(plaintextGrammar.id),
@@ -122,7 +133,7 @@ export function createHighlighter(
 
   const highlight = (
     code: string,
-    highlightOptions: HighlightOptions,
+    highlightOptions: HighlightOptions = {},
   ): string => {
     const language =
       highlightOptions.lang ?? options.defaultLanguage ?? "plaintext";
@@ -149,11 +160,24 @@ export function createHighlighter(
     render,
     registerLanguage,
     registerTheme,
-    hasLanguage: (language) => grammars.has(normalizeId(language)),
+    hasLanguage: (language) => {
+      const id = normalizeId(language);
+      return plaintextIds.has(id) || grammars.has(id);
+    },
     hasTheme: (theme) => themes.has(normalizeId(theme)),
-    getLanguage: (language) => grammars.get(normalizeId(language))?.source,
+    getLanguage: (language) => {
+      const id = normalizeId(language);
+      return (
+        grammars.get(id)?.source ??
+        (plaintextIds.has(id) ? plaintextGrammar : undefined)
+      );
+    },
     getTheme: (theme) => themes.get(normalizeId(theme)),
-    listLanguages: () => Object.freeze([...canonicalIds]),
+    listLanguages: () =>
+      Object.freeze([
+        "plaintext",
+        ...[...canonicalIds].filter((id) => id !== "plaintext"),
+      ]),
     listThemes: () => Object.freeze([...themes.keys()]),
   };
 }

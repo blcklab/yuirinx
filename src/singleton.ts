@@ -10,7 +10,10 @@ import type {
 const defaultHighlighter = createHighlighter();
 
 /** Highlights code through Yuirinx's convenience singleton registry. */
-export function highlight(code: string, options: HighlightOptions): string {
+export function highlight(
+  code: string,
+  options: HighlightOptions = {},
+): string {
   return defaultHighlighter.highlight(code, options);
 }
 

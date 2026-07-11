@@ -4,8 +4,8 @@ Yuirinx performs lexical syntax highlighting with regular expressions and tokeni
 
 ## Expected limitations
 
-- JavaScript regular-expression literals can be ambiguous with division
-- JSX tags can be ambiguous with TypeScript generic-angle syntax
+- JavaScript regular-expression literals use lexical context heuristics and may still be ambiguous in unusual expressions
+- JSX tags and TypeScript generic-angle syntax use practical heuristics rather than a full parser
 - Deep TypeScript type expressions may receive approximate classifications
 - HTML embedded `<script>` and `<style>` content is handled conservatively
 - Vue and Svelte highlighting is lexical rather than compiler-aware

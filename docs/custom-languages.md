@@ -123,7 +123,27 @@ A rule may resolve its token type or target state from the current match.
 }
 ```
 
-Resolvers receive a read-only tokenizer context with the language, active state, stack, and current offset.
+Resolvers receive a read-only tokenizer context with the full source string,
+language, active state, stack, and current offset.
+
+## Conditional rules
+
+Use `when` when a regex is valid only in a specific lexical context. The regex
+must still match at the current offset; the predicate decides whether Yuirinx
+accepts that match or continues to the next rule.
+
+```ts
+{
+  type: "directive",
+  pattern: /#[A-Za-z_]+/,
+  when: (_match, context) =>
+    context.offset === 0 ||
+    /[\r\n]/.test(context.source[context.offset - 1] ?? ""),
+}
+```
+
+Keep predicates small and local. Inspect characters near `context.offset` rather
+than repeatedly rescanning the entire source.
 
 ## Recommended token names
 

@@ -35,6 +35,14 @@ function classForToken(type: string, prefix: string): string {
   return `${safeClassPrefix(prefix)}${safeType}`;
 }
 
+function classesForToken(type: string, prefix: string): string[] {
+  const parts = type.split(".").filter(Boolean);
+  if (parts.length === 0) return [classForToken("plain", prefix)];
+  return parts.map((_, index) =>
+    classForToken(parts.slice(0, index + 1).join("."), prefix),
+  );
+}
+
 function classForFallbackLine(index: number, prefix: string): string {
   return `${safeClassPrefix(prefix)}fallback-line-${index}`;
 }
@@ -228,7 +236,8 @@ export function renderTokens(
       const escaped = escapeHtml(token.value);
       if (token.type === "plain") return escaped;
       if (mode === "classes") {
-        return `<span class="${escapeHtml(classForToken(token.type, prefix))}">${escaped}</span>`;
+        const classes = classesForToken(token.type, prefix);
+        return `<span class="${escapeHtml(classes.join(" "))}">${escaped}</span>`;
       }
       const declarations = styleToDeclarations(
         resolveTokenStyle(theme, token.type),
@@ -277,7 +286,11 @@ export function themeToCss(
     lines.push(`${selector}{${declarations.join(";")}}`);
   }
 
-  for (const [type, style] of Object.entries(theme.tokens)) {
+  const tokenStyles = Object.entries(theme.tokens).sort(
+    ([left], [right]) => left.split(".").length - right.split(".").length,
+  );
+
+  for (const [type, style] of tokenStyles) {
     const declarations = styleToDeclarations(style);
     if (declarations)
       lines.push(

@@ -1,6 +1,6 @@
 {
   "name": "@blcklab/yuirinx",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Small zero-dependency syntax highlighter for the modern web.",
   "keywords": [
     "syntax-highlighter",
@@ -433,7 +433,7 @@
     "dist"
   ],
   "engines": {
-    "node": ">=22"
+    "node": ">=18"
   },
   "publishConfig": {
     "access": "public",
@@ -464,8 +464,8 @@
     "check:exports": "node scripts/check-exports.mjs",
     "check:tree-shaking": "node scripts/check-tree-shaking.mjs",
     "check:package": "npm run build && npm run check:exports && publint && node scripts/verify-package.mjs",
-    "check": "npm run lint && npm test && npm run build && npm run check:exports && npm run check:tree-shaking && npm run size && publint && node scripts/verify-package.mjs",
-    "check:all": "npm run format:check && npm run check",
+    "check": "npm run format:check && npm run lint && npm test && npm run build && npm run check:exports && npm run check:tree-shaking && npm run size && publint && node scripts/verify-package.mjs",
+    "check:all": "npm run check",
     "prepublishOnly": "npm run check"
   }
 }

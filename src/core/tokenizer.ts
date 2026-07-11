@@ -115,11 +115,14 @@ export function tokenizeCompiled(
       }
 
       const context: TokenizerContext = {
+        source: code,
         language: grammar.id,
         state: stateName,
         stack: publicStack(grammar.id, stack),
         offset,
       };
+      if (rule.when && !rule.when(match, context)) continue;
+
       const tokenType =
         resolveValue(
           rule.type as TokenTypeResolver | undefined,

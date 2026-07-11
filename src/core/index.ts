@@ -13,6 +13,7 @@ export type {
   HighlightOptions,
   IncludeRule,
   LanguageId,
+  MatchPredicate,
   MatchRule,
   RenderMode,
   RenderOptions,

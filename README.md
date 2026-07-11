@@ -5,8 +5,6 @@
   <img src="https://img.shields.io/github/license/blcklab/yuirinx?style=flat-square" alt="license" />
 </p>
 
-
-
 # Yuirinx
 
 A lightweight, synchronous syntax highlighter for modern JavaScript and TypeScript applications.
@@ -56,13 +54,7 @@ Add your preferred layout styles:
   overflow-x: auto;
   padding: 1.25rem;
   border-radius: 1rem;
-  font-family:
-    ui-monospace,
-    SFMono-Regular,
-    Menlo,
-    Monaco,
-    Consolas,
-    monospace;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
   font-size: 0.875rem;
   line-height: 1.7;
   tab-size: 2;
@@ -71,16 +63,16 @@ Add your preferred layout styles:
 
 ## Features
 
-* Zero runtime dependencies
-* Synchronous API with no setup step
-* Safe HTML escaping
-* Individually importable languages and themes
-* ESM and CommonJS support
-* Inline-style and CSS-class rendering
-* Token API for custom renderers
-* Custom language and theme registration
-* Works in browsers, Node.js, workers, serverless, and edge runtimes
-* Safe plaintext fallback for unsupported languages
+- Zero runtime dependencies
+- Synchronous API with no setup step
+- Safe HTML escaping
+- Individually importable languages and themes
+- ESM and CommonJS support
+- Inline-style and CSS-class rendering
+- Token API for custom renderers
+- Custom language and theme registration
+- Works in browsers, Node.js, workers, serverless, and edge runtimes
+- Safe plaintext fallback for unsupported languages
 
 ## Tree-Shakable by Design
 
@@ -107,19 +99,16 @@ import { yuirinxPearl } from "@blcklab/yuirinx/theme/yuirinx-pearl";
 import { yuirinxAurora } from "@blcklab/yuirinx/theme/yuirinx-aurora";
 ```
 
-* **Yuirinx Noir** — a refined dark theme for documentation and long code samples
-* **Yuirinx Pearl** — a warm light theme with comfortable contrast
-* **Yuirinx Aurora** — an expressive dark theme for showcases and landing pages
+- **Yuirinx Noir** — a refined dark theme for documentation and long code samples
+- **Yuirinx Pearl** — a warm light theme with comfortable contrast
+- **Yuirinx Aurora** — an expressive dark theme for showcases and landing pages
 
 Register more than one theme when your app supports theme switching:
 
 ```ts
 const highlighter = createHighlighter({
   languages: [typescript],
-  themes: [
-    yuirinxNoir,
-    yuirinxPearl,
-  ],
+  themes: [yuirinxNoir, yuirinxPearl],
 });
 ```
 
@@ -151,10 +140,7 @@ The colors are deterministic, theme-aware, and stable across server and browser 
 Inline styles work without extra setup. If you want full control through your own stylesheet, use class mode:
 
 ```ts
-import {
-  createHighlighter,
-  themeToCss,
-} from "@blcklab/yuirinx";
+import { createHighlighter, themeToCss } from "@blcklab/yuirinx";
 
 const html = highlighter.highlight(code, {
   lang: "typescript",
@@ -167,20 +153,17 @@ const css = themeToCss(yuirinxNoir);
 
 Class mode is useful for:
 
-* Content Security Policies that restrict inline styles
-* Automatic light and dark mode
-* Shared application stylesheets
-* Custom token styling
+- Content Security Policies that restrict inline styles
+- Automatic light and dark mode
+- Shared application stylesheets
+- Custom token styling
 
 ## Token API
 
 Use the lower-level token API when rendering code through Vue, React, a terminal, or another custom interface:
 
 ```ts
-const tokens = highlighter.tokenize(
-  `const enabled = true;`,
-  "typescript",
-);
+const tokens = highlighter.tokenize(`const enabled = true;`, "typescript");
 
 for (const token of tokens) {
   console.log(token.type, token.value);
@@ -193,16 +176,16 @@ Each token includes its type, source value, and original character offsets.
 
 Yuirinx includes independently importable grammars for popular web, systems, application, and configuration languages, including:
 
-* JavaScript, TypeScript, JSX, and TSX
-* HTML, XML, CSS, and SCSS
-* JSON, YAML, TOML, and INI
-* Markdown
-* Bash and shell scripts
-* Python, PHP, Ruby, and SQL
-* C, C++, C#, Java, Kotlin, Swift, Dart, Go, and Rust
-* Vue and Svelte
-* Dockerfile, Nginx, and GraphQL
-* Plaintext
+- JavaScript, TypeScript, JSX, and TSX
+- HTML, XML, CSS, and SCSS
+- JSON, YAML, TOML, and INI
+- Markdown
+- Bash and shell scripts
+- Python, PHP, Ruby, and SQL
+- C, C++, C#, Java, Kotlin, Swift, Dart, Go, and Rust
+- Vue and Svelte
+- Dockerfile, Nginx, and GraphQL
+- Plaintext
 
 Each grammar also registers common aliases such as `js`, `ts`, `py`, `md`, `yml`, `sh`, and `c++`.
 
@@ -212,12 +195,12 @@ Yuirinx treats source code as untrusted text.
 
 It:
 
-* Escapes HTML-sensitive characters
-* Never evaluates or executes source code
-* Does not use `eval` or `new Function`
-* Does not require DOM access
-* Preserves malformed and unfinished source safely
-* Falls back to escaped plaintext when a grammar is unavailable
+- Escapes HTML-sensitive characters
+- Never evaluates or executes source code
+- Does not use `eval` or `new Function`
+- Does not require DOM access
+- Preserves malformed and unfinished source safely
+- Falls back to escaped plaintext when a grammar is unavailable
 
 The returned HTML is intended for normal HTML content contexts. Do not place it directly inside JavaScript, CSS, or URL contexts.
 
@@ -225,16 +208,16 @@ The returned HTML is intended for normal HTML content contexts. Do not place it 
 
 Complete guides and API documentation are available in the project repository:
 
-* [Getting started](https://github.com/blcklab/yuirinx/blob/main/docs/getting-started.md)
-* [API reference](https://github.com/blcklab/yuirinx/blob/main/docs/api.md)
-* [Rendering and styling](https://github.com/blcklab/yuirinx/blob/main/docs/rendering.md)
-* [Languages and aliases](https://github.com/blcklab/yuirinx/blob/main/docs/languages.md)
-* [Themes](https://github.com/blcklab/yuirinx/blob/main/docs/themes.md)
-* [Custom languages](https://github.com/blcklab/yuirinx/blob/main/docs/custom-languages.md)
-* [Custom themes](https://github.com/blcklab/yuirinx/blob/main/docs/custom-themes.md)
-* [Browser and framework usage](https://github.com/blcklab/yuirinx/blob/main/docs/browser-and-frameworks.md)
-* [Security](https://github.com/blcklab/yuirinx/blob/main/docs/security.md)
-* [Limitations](https://github.com/blcklab/yuirinx/blob/main/docs/limitations.md)
+- [Getting started](https://github.com/blcklab/yuirinx/blob/main/docs/getting-started.md)
+- [API reference](https://github.com/blcklab/yuirinx/blob/main/docs/api.md)
+- [Rendering and styling](https://github.com/blcklab/yuirinx/blob/main/docs/rendering.md)
+- [Languages and aliases](https://github.com/blcklab/yuirinx/blob/main/docs/languages.md)
+- [Themes](https://github.com/blcklab/yuirinx/blob/main/docs/themes.md)
+- [Custom languages](https://github.com/blcklab/yuirinx/blob/main/docs/custom-languages.md)
+- [Custom themes](https://github.com/blcklab/yuirinx/blob/main/docs/custom-themes.md)
+- [Browser and framework usage](https://github.com/blcklab/yuirinx/blob/main/docs/browser-and-frameworks.md)
+- [Security](https://github.com/blcklab/yuirinx/blob/main/docs/security.md)
+- [Limitations](https://github.com/blcklab/yuirinx/blob/main/docs/limitations.md)
 
 ## Project Status
 

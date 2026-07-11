@@ -87,8 +87,46 @@ try {
     throw new Error("The JSON language entry was not included in the bundle.");
   }
 
+  const sharedFamilyResult = await build({
+    stdin: {
+      contents: `
+        import { javascript } from '@blcklab/yuirinx/lang/javascript'
+        import { typescript } from '@blcklab/yuirinx/lang/typescript'
+        import { jsx } from '@blcklab/yuirinx/lang/jsx'
+        import { tsx } from '@blcklab/yuirinx/lang/tsx'
+        export const languages = [javascript, typescript, jsx, tsx]
+      `,
+      resolveDir: temp,
+      sourcefile: "shared-family-entry.js",
+      loader: "js",
+    },
+    absWorkingDir: temp,
+    bundle: true,
+    format: "esm",
+    platform: "browser",
+    target: "es2020",
+    minify: true,
+    metafile: true,
+    write: false,
+  });
+
+  const familyInputs = Object.keys(sharedFamilyResult.metafile.inputs).map(
+    (value) => value.replaceAll("\\", "/"),
+  );
+  const sharedEcmaInputs = familyInputs.filter((input) =>
+    input.endsWith("/languages/shared/ecmascript.js"),
+  );
+  if (sharedEcmaInputs.length !== 1) {
+    throw new Error(
+      "ECMAScript language entries must share one preserved grammar module.",
+    );
+  }
+
   console.log(
     `Tree-shaking passed through packed public imports: ${inputs.length} package modules in core + JSON bundle.`,
+  );
+  console.log(
+    `Shared ESM graph passed: JavaScript, TypeScript, JSX, and TSX use one ECMAScript grammar module.`,
   );
 } finally {
   await rm(temp, { recursive: true, force: true });

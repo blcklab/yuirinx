@@ -18,7 +18,7 @@ export const punctuationRule: GrammarRule = {
 export const operatorRule: GrammarRule = {
   type: "operator",
   pattern:
-    /(?:===|!==|>>>|<<=|>>=|=>|==|!=|<=|>=|&&|\|\||\?\?|\?\.|\+\+|--|\+=|-=|\*=|\/=|%=|\*\*|<<|>>|[+\-*/%=&|!<>^~?])+/,
+    /(?:===|!==|>>>|<<=|>>=|=>|==|!=|<=|>=|&&|\|\||\?\?|\?\.|\+\+|--|\+=|-=|\*=|\/=|%=|\*\*|<<|>>|[+\-*/%=&|!<>^~?])/,
 };
 
 export const numberRule: GrammarRule = {

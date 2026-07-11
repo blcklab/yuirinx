@@ -30,7 +30,7 @@ export function createCssGrammar(options: CssOptions): Grammar {
     {
       type: "unit",
       pattern:
-        /(?:%|px|r?em|vh|vw|vmin|vmax|ch|ex|cm|mm|in|pt|pc|s|ms|deg|rad|turn)\b/i,
+        /(?:%(?![\w-])|(?:px|r?em|vh|vw|vmin|vmax|ch|ex|cm|mm|in|pt|pc|s|ms|deg|rad|turn)\b)/i,
     },
     {
       type: "selector",

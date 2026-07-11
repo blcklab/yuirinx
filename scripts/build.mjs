@@ -39,8 +39,6 @@ const entryPoints = allFiles.filter((file) => {
 });
 
 const common = {
-  entryPoints,
-  bundle: true,
   outbase: src,
   entryNames: "[dir]/[name]",
   sourcemap: sourceMap,
@@ -50,15 +48,22 @@ const common = {
   logLevel: "info",
 };
 
+// Preserve the ESM module graph so language families share their internal
+// grammar factories instead of embedding duplicate copies in every entry.
 await build({
   ...common,
+  entryPoints: allFiles,
+  bundle: false,
   format: "esm",
   platform: "neutral",
   outdir: path.join(dist, "esm"),
 });
 
+// Keep CommonJS public entries self-contained for reliable require() usage.
 await build({
   ...common,
+  entryPoints,
+  bundle: true,
   format: "cjs",
   platform: "node",
   outdir: path.join(dist, "cjs"),
