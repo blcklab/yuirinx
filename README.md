@@ -1,6 +1,6 @@
 <p align="center">
  <img
-  src="https://raw.githubusercontent.com/blcklab/yuirinx/main/docs/logo.png"
+  src="https://cdn.jsdelivr.net/gh/blcklab/yuirinx@master/docs/logo.png"
   alt="Yuirinx logo"
   width="110"
 />
