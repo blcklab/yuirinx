@@ -21,7 +21,6 @@
 
 Yuirinx gives you safe, themeable syntax highlighting with zero runtime dependencies. Languages and themes are imported separately, so your app only bundles what it actually uses.
 
-
 ## Installation
 
 ```bash
