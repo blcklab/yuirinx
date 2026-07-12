@@ -1,15 +1,26 @@
 <p align="center">
+ <img
+  src="https://raw.githubusercontent.com/blcklab/yuirinx/main/docs/logo.png"
+  alt="Yuirinx logo"
+  width="110"
+/>
+</p>
+
+<h1 align="center">Yuirinx</h1>
+
+<p align="center">
+  A lightweight, synchronous syntax highlighter for modern JavaScript and TypeScript applications.
+</p>
+
+<p align="center">
   <img src="https://img.shields.io/npm/v/@blcklab/yuirinx?style=flat-square" alt="npm version" />
   <img src="https://img.shields.io/npm/dm/@blcklab/yuirinx?style=flat-square" alt="downloads" />
   <img src="https://github.com/blcklab/yuirinx/actions/workflows/test.yml/badge.svg?style=flat-square" alt="tests" />
   <img src="https://img.shields.io/github/license/blcklab/yuirinx?style=flat-square" alt="license" />
 </p>
 
-# Yuirinx
-
-A lightweight, synchronous syntax highlighter for modern JavaScript and TypeScript applications.
-
 Yuirinx gives you safe, themeable syntax highlighting with zero runtime dependencies. Languages and themes are imported separately, so your app only bundles what it actually uses.
+
 
 ## Installation
 
