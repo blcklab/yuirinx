@@ -6,8 +6,6 @@
 />
 </p>
 
-<h1 align="center">Yuirinx</h1>
-
 <p align="center">
   A lightweight, synchronous syntax highlighter for modern JavaScript and TypeScript applications.
 </p>
